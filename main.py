@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
         df = pd.DataFrame(products)
         print(df)
-        df.to_excel('promocje.xlsx')
+        df.to_excel('promocje.xlsx', index=None)
 
 
     except Exception as e:

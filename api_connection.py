@@ -1,6 +1,12 @@
 import requests
 import os
 
+def clear_console():
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
+
 
 class ShoperAPIClient:
 
@@ -42,8 +48,11 @@ class ShoperAPIClient:
 
             # If no data is returned
             if not page_data:
+                clear_console()
                 break
 
+
+            clear_console()
             print(f'Page: {page}')
             products.extend(page_data)
             page += 1
