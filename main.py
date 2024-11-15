@@ -1,16 +1,21 @@
-import requests
+from api_connection import ShoperAPIClient
+import pandas as pd
 import os
 
-LOGIN = os.environ.get('LOGIN')
-PASSWORD = os.environ.get('PASSWORD')
-SHOPERSITE = os.environ.get('SHOPERSITE')
+if __name__ == "__main__":
+    client = ShoperAPIClient()
 
-# Connecting to Shoper REST API
-shoper_session = requests.Session()
-response = shoper_session.post(f'{SHOPERSITE}/webapi/rest/auth', auth=(LOGIN, PASSWORD))
-token = response.json()['access_token']
-shoper_session.headers.update({'Authorization': f'Bearer {token}'})
+    try:
+        # Authenticate with the Shoper API
+        client.connect()
+
+        # Fetch and display products
+        products = client.get_all_products()
+
+        df = pd.DataFrame(products)
+        print(df)
+        df.to_excel('promocje.xlsx')
 
 
-
-
+    except Exception as e:
+        print(f"Error: {e}")
