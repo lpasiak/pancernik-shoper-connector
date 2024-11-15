@@ -10,12 +10,9 @@ if __name__ == "__main__":
         client.connect()
 
         # Fetch and display products
-        products = client.get_all_products()
-
-        df = pd.DataFrame(products)
-        print(df)
-        df.to_excel('promocje.xlsx', index=None)
-
+        df = client.get_all_special_offers_with_code()
+        df.to_excel('wszystko.xlsx', index=False)
 
     except Exception as e:
         print(f"Error: {e}")
+
