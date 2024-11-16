@@ -14,7 +14,7 @@ class ShoperAPIClient:
         self.token = None
 
     def connect(self):
-        '''Authenticate with the API'''
+        """Authenticate with the API"""
         response = self.session.post(
             f'{self.site_url}/webapi/rest/auth',
             auth=(self.login, self.password)
@@ -28,7 +28,7 @@ class ShoperAPIClient:
             raise Exception(f"Authentication failed: {response.status_code}, {response.text}")
 
     def get_all_products(self):
-        '''Get all products using pagination and print the result'''
+        """Get all products using pagination and print the result"""
         products = []
         page = 1
         url = f'{self.site_url}/webapi/rest/products'
@@ -36,12 +36,11 @@ class ShoperAPIClient:
         while True:
             params = {'limit': 10, 'page': page}
             response = self.session.get(url, params=params)
-            
+
             if response.status_code != 200:
                 raise Exception(f"Failed to fetch data: {response.status_code}, {response.text}")
 
             page_data = response.json().get('list', [])
-
             filtered_data = [
                 {
                     'product_id': product['product_id'],
@@ -55,7 +54,6 @@ class ShoperAPIClient:
                 clear_console()
                 break
 
-
             clear_console()
             print(f'Page: {page}')
             products.extend(filtered_data)
@@ -64,7 +62,7 @@ class ShoperAPIClient:
         return products
 
     def get_all_special_offers(self):
-        '''Get products only with special offers'''
+        """Get products only with special offers"""
         special_offers = []
         page = 1
         url = f'{self.site_url}/webapi/rest/specialoffers'
@@ -72,7 +70,7 @@ class ShoperAPIClient:
         while True:
             params = {'limit': 10, 'page': page}
             response = self.session.get(url, params=params)
-            
+
             if response.status_code != 200:
                 raise Exception(f"Failed to fetch data: {response.status_code}, {response.text}")
 
@@ -103,5 +101,5 @@ class ShoperAPIClient:
         df.insert(0, 'code', code_column)
         id_column = df.pop('product_id')
         df.insert(0, 'product_id', id_column)
-        
+
         return df
