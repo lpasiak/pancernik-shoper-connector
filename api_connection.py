@@ -34,20 +34,13 @@ class ShoperAPIClient:
         url = f'{self.site_url}/webapi/rest/products'
 
         while True:
-            params = {'limit': 10, 'page': page}
+            params = {'limit': 50, 'page': page}
             response = self.session.get(url, params=params)
 
             if response.status_code != 200:
                 raise Exception(f"Failed to fetch data: {response.status_code}, {response.text}")
 
             page_data = response.json().get('list', [])
-            filtered_data = [
-                {
-                    'product_id': product['product_id'],
-                    'code': product['code'],
-                }
-                for product in page_data
-            ]
 
             # If no data is returned
             if not page_data:
@@ -56,7 +49,7 @@ class ShoperAPIClient:
 
             clear_console()
             print(f'Page: {page}')
-            products.extend(filtered_data)
+            products.extend(page_data)
             page += 1
 
         return products

@@ -1,4 +1,5 @@
 from api_connection import ShoperAPIClient
+import pandas as pd
 
 if __name__ == "__main__":
     client = ShoperAPIClient()
@@ -8,8 +9,8 @@ if __name__ == "__main__":
         client.connect()
 
         # Fetch and display products
-        df = client.get_all_special_offers_with_ean()
-        df.to_excel('wszystko.xlsx', index=False)
+        df = pd.DataFrame(client.get_all_products())
+        df.to_excel('wszystkie_produkty.xlsx', index=False)
 
     except Exception as e:
         print(f"Error: {e}")
