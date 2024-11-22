@@ -61,7 +61,7 @@ class ShoperAPIClient:
         url = f'{self.site_url}/webapi/rest/specialoffers'
 
         while True:
-            params = {'limit': 10, 'page': page}
+            params = {'limit': 50, 'page': page}
             response = self.session.get(url, params=params)
 
             if response.status_code != 200:
