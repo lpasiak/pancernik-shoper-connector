@@ -82,7 +82,7 @@ class ShoperAPIClient:
         return special_offers
 
     def get_all_special_offers_with_ean(self):
-
+        """Get all special offers with an EAN column beside."""
         products = self.get_all_products()
         special_offers = self.get_all_special_offers()
 
@@ -96,3 +96,12 @@ class ShoperAPIClient:
         df.insert(0, 'product_id', id_column)
 
         return df
+
+    def create_special_offers(self, special_offer):
+        url = f'{self.site_url}/webapi/rest/specialoffers'
+        response = self.session.post(url, json=special_offer)
+
+        if response.status_code != 200:
+            raise Exception(f"Failed to create special offer: {response.status_code}, {response.text}")
+
+        return response
