@@ -117,3 +117,25 @@ class ShoperAPIClient:
             raise Exception(f"Failed to create special offer: {response.status_code}, {response.text}")
 
         return response
+
+    def update_gpsr_info(self, gsheets):
+        """Append GPSR producer ID to a product"""
+        gpsr_data = pd.read_csv(gsheets, header=None, skiprows=1)
+        gpsr_data.columns = ['product_id', 'producer_id']
+        result = gpsr_data.to_dict(orient='records')
+
+        for item in result:
+            product_id, producer_id = item['product_id'], item["producer_id"]
+
+            data = {
+                "safety_information": {
+                    "gpsr_producer_id": producer_id
+                }
+            }
+
+            url = f'{self.site_url}/webapi/rest/products/{product_id}'
+            response = self._handle_request('PUT', url, json=data)
+            print(f'{product_id} producer id set to {producer_id}')
+
+            if response.status_code != 200:
+                print(f"Failed to update a product: {response.status_code}, {response.text}")
