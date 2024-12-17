@@ -19,12 +19,14 @@ if __name__ == "__main__":
         # Authenticate with the Shoper API
         client.connect()
 
+        # == Update GPSR info == #
         client.update_gpsr_info(GPSR_SHEET)
-        # Create a promo offer
+
+        # == Create a promo offer == #
         # client.create_special_offers(special_offer)
 
-        # Fetch and display products
-        # df = pd.DataFrame(client.get_all_special_offers_with_ean())
+        # == Fetch and display products == #
+        # df = pd.DataFrame(client.get_all_products())
         # df.to_excel('wszystkie_produkty.xlsx', index=False)
 
     except Exception as e:

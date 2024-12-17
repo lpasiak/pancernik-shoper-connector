@@ -121,21 +121,29 @@ class ShoperAPIClient:
     def update_gpsr_info(self, gsheets):
         """Append GPSR producer ID to a product"""
         gpsr_data = pd.read_csv(gsheets, header=None, skiprows=1)
-        gpsr_data.columns = ['product_id', 'producer_id']
+        gpsr_data.columns = ['product_id', 'producer_id', 'gpsr_responsible_id']
         result = gpsr_data.to_dict(orient='records')
 
         for item in result:
-            product_id, producer_id = item['product_id'], item["producer_id"]
+            product_id = item['product_id']
+            producer_id = item["producer_id"]
+            responsible_id = item["gpsr_responsible_id"]
 
-            data = {
-                "safety_information": {
-                    "gpsr_producer_id": producer_id
-                }
-            }
+            # Build the data dictionary dynamically
+            if pd.notna(producer_id):
+                safety_info = {"gpsr_producer_id": producer_id}
+            
+            # Check if gpsr_responsible_id is not NaN, then add it
+            if pd.notna(responsible_id):
+                safety_info["gpsr_responsible_id"] = responsible_id
 
+            data = {"safety_information": safety_info}
+
+            # Make the PUT request
             url = f'{self.site_url}/webapi/rest/products/{product_id}'
             response = self._handle_request('PUT', url, json=data)
-            print(f'{product_id} producer id set to {producer_id}')
+            print(f'{product_id} producer_id set to {producer_id}, '
+                f'producer_id set to {producer_id if pd.notna(producer_id) else "N/A"}, responsible_id set to {responsible_id if pd.notna(responsible_id) else "N/A"}')
 
             if response.status_code != 200:
                 print(f"Failed to update a product: {response.status_code}, {response.text}")
