@@ -20,14 +20,14 @@ if __name__ == "__main__":
         client.connect()
 
         # == Update GPSR info == #
-        client.update_gpsr_info(GPSR_SHEET)
+        # client.update_gpsr_info(GPSR_SHEET)
 
         # == Create a promo offer == #
         # client.create_special_offers(special_offer)
 
         # == Fetch and display products == #
-        # df = pd.DataFrame(client.get_all_products())
-        # df.to_excel('wszystkie_produkty.xlsx', index=False)
+        df = pd.DataFrame(client.get_all_products())
+        df.to_excel('wszystkie_produkty.xlsx', index=False)
 
     except Exception as e:
         print(f"Error: {e}")
