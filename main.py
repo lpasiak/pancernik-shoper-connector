@@ -26,8 +26,12 @@ if __name__ == "__main__":
         # client.create_special_offers(special_offer)
 
         # == Fetch and display products == #
-        df = pd.DataFrame(client.get_all_products())
-        df.to_excel('wszystkie_produkty.xlsx', index=False)
+        # product_df = pd.DataFrame(client.get_all_products())
+        # product_df.to_excel('wszystkie_produkty.xlsx', index=False)
+
+        category_df = pd.DataFrame(client.get_all_categories())
+        category_df.to_excel('wszystkie_kategorie.xlsx', index=False)
+        print(category_df)
 
     except Exception as e:
         print(f"Error: {e}")

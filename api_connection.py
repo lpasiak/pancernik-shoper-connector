@@ -65,6 +65,32 @@ class ShoperAPIClient:
             page += 1
 
         return products
+    
+    def get_all_categories(self):
+        """Get all categories using pagination and print the result"""
+        categories = []
+        page = 1
+        url = f'{self.site_url}/webapi/rest/categories'
+
+        while True:
+            params = {'limit': 50, 'page': page}
+            response = self._handle_request('GET', url, params=params)
+
+            if response.status_code != 200:
+                raise Exception(f"Failed to fetch data: {response.status_code}, {response.text}")
+
+            page_data = response.json().get('list', [])
+
+            if not page_data:
+                clear_console()
+                break
+        
+            clear_console()
+            print(f'Page: {page}')
+            categories.extend(page_data)
+            page += 1
+        
+        return categories
 
     def get_all_special_offers(self):
         """Get products only with special offers"""
