@@ -49,6 +49,8 @@ class ShoperAPIClient:
         while True:
             params = {'limit': 50, 'page': page}
             response = self._handle_request('GET', url, params=params)
+            data = response.json()
+            number_of_pages = data['pages']
 
             if response.status_code != 200:
                 raise Exception(f"Failed to fetch data: {response.status_code}, {response.text}")
@@ -60,7 +62,7 @@ class ShoperAPIClient:
                 break
 
             clear_console()
-            print(f'Page: {page}')
+            print(f'Page: {page}/{number_of_pages}')
             products.extend(page_data)
             page += 1
 
@@ -75,6 +77,8 @@ class ShoperAPIClient:
         while True:
             params = {'limit': 50, 'page': page}
             response = self._handle_request('GET', url, params=params)
+            data = response.json()
+            number_of_pages = data['pages']
 
             if response.status_code != 200:
                 raise Exception(f"Failed to fetch data: {response.status_code}, {response.text}")
@@ -86,7 +90,7 @@ class ShoperAPIClient:
                 break
         
             clear_console()
-            print(f'Page: {page}')
+            print(f'Page: {page}/{number_of_pages}')
             categories.extend(page_data)
             page += 1
         
