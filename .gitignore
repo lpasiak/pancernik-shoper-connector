@@ -1,7 +1,7 @@
 venv
 .venv
-.env.bat
-.env.bat.test.bat
+*.bat
+*.sh
 __pycache__/
 .idea
 .DS_Store
