@@ -169,7 +169,7 @@ class ShoperAPIClient:
                 safety_info["gpsr_responsible_id"] = responsible_id
 
             if pd.notna(gpsr_certificates):
-                safety_info["gpsr_certificates"] = gpsr_certificates
+                safety_info["gpsr_certificates"] = [int(gpsr_certificates)]
 
             data = {"safety_information": safety_info}
 
