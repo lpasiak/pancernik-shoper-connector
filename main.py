@@ -23,7 +23,7 @@ if __name__ == "__main__":
         # client.update_gpsr_info(GPSR_SHEET)
 
         # == Update Recommended products == #
-        # client.update_recommended_products(COMBINED_PRODUCTS_SHEET)
+        client.update_related_products(COMBINED_PRODUCTS_SHEET)
 
         # == Create a promo offer == #
         # client.create_special_offers(special_offer)
@@ -32,9 +32,9 @@ if __name__ == "__main__":
         # product_df = pd.DataFrame(client.get_all_products())
         # product_df.to_excel('wszystkie_produkty.xlsx', index=False)
 
-        category_df = pd.DataFrame(client.get_all_categories())
-        category_df.to_excel('wszystkie_kategorie.xlsx', index=False)
-        print(category_df)
+        # category_df = pd.DataFrame(client.get_all_categories())
+        # category_df.to_excel('wszystkie_kategorie.xlsx', index=False)
+        # print(category_df)
 
     except Exception as e:
         print(f"Error: {e}")

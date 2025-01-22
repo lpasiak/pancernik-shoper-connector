@@ -151,13 +151,14 @@ class ShoperAPIClient:
     def update_gpsr_info(self, gsheets):
         """Append GPSR producer ID to products"""
         gpsr_data = pd.read_csv(gsheets, header=None, skiprows=1)
-        gpsr_data.columns = ['product_id', 'producer_id', 'gpsr_responsible_id']
+        gpsr_data.columns = ['product_id', 'producer_id', 'gpsr_responsible_id', 'gpsr_certificates']
         result = gpsr_data.to_dict(orient='records')
 
         for item in result:
             product_id = item['product_id']
             producer_id = item["producer_id"]
             responsible_id = item["gpsr_responsible_id"]
+            gpsr_certificates = item["gpsr_certificates"]
 
             # Build the data dictionary dynamically
             if pd.notna(producer_id):
@@ -167,17 +168,38 @@ class ShoperAPIClient:
             if pd.notna(responsible_id):
                 safety_info["gpsr_responsible_id"] = responsible_id
 
+            if pd.notna(gpsr_certificates):
+                safety_info["gpsr_certificates"] = gpsr_certificates
+
             data = {"safety_information": safety_info}
 
             # Make the PUT request
             url = f'{self.site_url}/webapi/rest/products/{product_id}'
             response = self._handle_request('PUT', url, json=data)
             print(f'{product_id} producer_id set to {producer_id}, '
-                f'producer_id set to {producer_id if pd.notna(producer_id) else "N/A"}, responsible_id set to {responsible_id if pd.notna(responsible_id) else "N/A"}')
+                f'producer_id set to {producer_id if pd.notna(producer_id) else "N/A"}, responsible_id set to {responsible_id}, certificates to {gpsr_certificates}.')
 
             if response.status_code != 200:
                 print(f"Failed to update a product: {response.status_code}, {response.text}")
 
-    def update_recommended_products(self, gsheets):
+    def update_related_products(self, gsheets):
         """Update Recommended products in products"""
-        pass
+        product_data = pd.read_csv(gsheets)
+        result = product_data.to_dict(orient='records')
+
+        for item in result:
+            product_id = item['product_id']
+            related_products = item["related_products"]
+
+            # Turn a string into an array of related products
+            related_list = [int(num.strip()) for num in related_products.split(', ')]
+
+            data = {"related": related_list}
+
+            # Make the PUT request
+            url = f'{self.site_url}/webapi/rest/products/{product_id}'
+            response = self._handle_request('PUT', url, json=data)
+            print(f'{product_id}: related products set to {data["related"]} ')
+
+            if response.status_code != 200:
+                print(f"Failed to update a product: {response.status_code}, {response.text}")
