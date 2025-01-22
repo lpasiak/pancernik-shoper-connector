@@ -10,7 +10,7 @@ import pandas as pd
 # }
 
 GPSR_SHEET = 'https://docs.google.com/spreadsheets/d/1X_Rzj8QjdoBBrbeRKZHklExhWNOIlfGg_lfy8tGKu3k/export?format=csv'
-
+COMBINED_PRODUCTS_SHEET = 'https://docs.google.com/spreadsheets/d/1X_Rzj8QjdoBBrbeRKZHklExhWNOIlfGg_lfy8tGKu3k/export?format=csv&gid=8734097'
 
 if __name__ == "__main__":
     client = ShoperAPIClient()
@@ -21,6 +21,9 @@ if __name__ == "__main__":
 
         # == Update GPSR info == #
         # client.update_gpsr_info(GPSR_SHEET)
+
+        # == Update Recommended products == #
+        # client.update_recommended_products(COMBINED_PRODUCTS_SHEET)
 
         # == Create a promo offer == #
         # client.create_special_offers(special_offer)

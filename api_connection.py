@@ -149,7 +149,7 @@ class ShoperAPIClient:
         return response
 
     def update_gpsr_info(self, gsheets):
-        """Append GPSR producer ID to a product"""
+        """Append GPSR producer ID to products"""
         gpsr_data = pd.read_csv(gsheets, header=None, skiprows=1)
         gpsr_data.columns = ['product_id', 'producer_id', 'gpsr_responsible_id']
         result = gpsr_data.to_dict(orient='records')
@@ -177,3 +177,7 @@ class ShoperAPIClient:
 
             if response.status_code != 200:
                 print(f"Failed to update a product: {response.status_code}, {response.text}")
+
+    def update_recommended_products(self, gsheets):
+        """Update Recommended products in products"""
+        pass
