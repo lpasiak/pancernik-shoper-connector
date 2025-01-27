@@ -1,9 +1,10 @@
 venv
 .venv
+sheets
+credentials
 *.bat
 *.sh
 __pycache__/
 .idea
 .DS_Store
 *.xlsx
-/sheets

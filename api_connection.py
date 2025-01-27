@@ -202,4 +202,4 @@ class ShoperAPIClient:
             print(f'{product_id}: related products set to {data["related"]} ')
 
             if response.status_code != 200:
-                print(f"Failed to update a product: {response.status_code}, {response.text}")
+                print(f"Failed to update a product: {response.status_code}, {response.text}") 

@@ -1,5 +1,6 @@
 from api_connection import ShoperAPIClient
 import pandas as pd
+import os
 
 # special_offer = {
 #     'discount': 10,
@@ -24,16 +25,16 @@ if __name__ == "__main__":
 
         # == Update Recommended products == #
         client.update_related_products(COMBINED_PRODUCTS_SHEET)
-
+        
         # == Create a promo offer == #
         # client.create_special_offers(special_offer)
 
         # == Fetch and display products == #
         # product_df = pd.DataFrame(client.get_all_products())
-        # product_df.to_excel('wszystkie_produkty.xlsx', index=False)
+        # product_df.to_excel(os.path.join('sheets', 'All_products.xlsx'), index=False)
 
         # category_df = pd.DataFrame(client.get_all_categories())
-        # category_df.to_excel('wszystkie_kategorie.xlsx', index=False)
+        # category_df.to_excel('sheets\All_categories.xlsx', index=False)
         # print(category_df)
 
     except Exception as e:

@@ -1,6 +1,6 @@
 import pandas as pd
 
-EXCEL = 'atrybuty_dogrywka.xlsx'
+EXCEL = r'sheets\Atrybuty_dogrywka.xlsx'
 
 # Load Excel sheets into dictionaries
 df_shoper = pd.read_excel(EXCEL, sheet_name='Shoper', dtype='str')
@@ -43,6 +43,4 @@ final_df = pd.concat([headers_row, final_df], ignore_index=True)
 final_df.columns = metafield_headers
 
 # Save to Excel
-final_df.to_excel('ids.xlsx', index=False)
-
-print("DataFrame with new headers saved to 'ids.xlsx'.")
+final_df.to_excel('sheets\Atrybuty_Import.xlsx', index=False)
