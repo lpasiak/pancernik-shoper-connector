@@ -1,5 +1,5 @@
 
 # Can be MAIN (deployment) and TEST (development)
-SITE = 'TEST'
+SITE = 'MAIN'
 
 SHOPER_LIMIT = 50
