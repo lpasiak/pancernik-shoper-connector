@@ -13,6 +13,11 @@ import os
 GPSR_SHEET = 'https://docs.google.com/spreadsheets/d/1X_Rzj8QjdoBBrbeRKZHklExhWNOIlfGg_lfy8tGKu3k/export?format=csv'
 COMBINED_PRODUCTS_SHEET = 'https://docs.google.com/spreadsheets/d/1X_Rzj8QjdoBBrbeRKZHklExhWNOIlfGg_lfy8tGKu3k/export?format=csv&gid=8734097'
 
+# Jeśli chcecie zmienić arkusz do produktów powiązanych, to zróbcie nowego
+# Google sheetsa i zmieńcie link do arkusza w zmiennej COMBINED_PRODUCTS_SHEET
+# Arkusz musi mieć kolumny product_id oraz related_products
+# related products w formie id produktów oddzielonych przecinkami
+
 if __name__ == "__main__":
     client = ShoperAPIClient()
 
