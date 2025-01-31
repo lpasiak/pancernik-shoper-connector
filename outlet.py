@@ -1,6 +1,8 @@
 import pandas as pd
+import os
 
-EXCEL = r'sheets\Atrybuty_dogrywka.xlsx'
+EXCEL = os.path.join('sheets', 'Atrybuty_dogrywka.xlsx')
+EXCEL_FINAL = os.path.join('sheets', 'Atrybuty_Import.xlsx')
 
 # Load Excel sheets into dictionaries
 df_shoper = pd.read_excel(EXCEL, sheet_name='Shoper', dtype='str')
@@ -43,4 +45,4 @@ final_df = pd.concat([headers_row, final_df], ignore_index=True)
 final_df.columns = metafield_headers
 
 # Save to Excel
-final_df.to_excel('sheets\Atrybuty_Import.xlsx', index=False)
+final_df.to_excel(EXCEL_FINAL, index=False)

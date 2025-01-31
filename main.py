@@ -21,10 +21,10 @@ if __name__ == "__main__":
         client.connect()
 
         # == Update GPSR info == #
-        # client.update_gpsr_info(GPSR_SHEET)
+        client.update_gpsr_info(GPSR_SHEET)
 
         # == Update Recommended products == #
-        client.update_related_products(COMBINED_PRODUCTS_SHEET)
+        # client.update_related_products(COMBINED_PRODUCTS_SHEET)
         
         # == Create a promo offer == #
         # client.create_special_offers(special_offer)

@@ -3,14 +3,14 @@ import pandas as pd
 import requests
 import os
 import time
-
+import config
 
 class ShoperAPIClient:
 
     def __init__(self):
-        self.site_url = os.environ.get('SHOPERSITE')
-        self.login = os.environ.get('LOGIN')
-        self.password = os.environ.get('PASSWORD')
+        self.site_url = os.environ.get(f'SHOPERSITE_{config.SITE}')
+        self.login = os.environ.get(f'LOGIN_{config.SITE}')
+        self.password = os.environ.get(f'PASSWORD_{config.SITE}')
         self.session = requests.Session()  # Maintain a session
         self.token = None
 
@@ -47,7 +47,7 @@ class ShoperAPIClient:
         url = f'{self.site_url}/webapi/rest/products'
 
         while True:
-            params = {'limit': 50, 'page': page}
+            params = {'limit': config.SHOPER_LIMIT, 'page': page}
             response = self._handle_request('GET', url, params=params)
             data = response.json()
             number_of_pages = data['pages']
@@ -75,7 +75,7 @@ class ShoperAPIClient:
         url = f'{self.site_url}/webapi/rest/categories'
 
         while True:
-            params = {'limit': 50, 'page': page}
+            params = {'limit': config.SHOPER_LIMIT, 'page': page}
             response = self._handle_request('GET', url, params=params)
             data = response.json()
             number_of_pages = data['pages']
@@ -103,7 +103,7 @@ class ShoperAPIClient:
         url = f'{self.site_url}/webapi/rest/specialoffers'
 
         while True:
-            params = {'limit': 50, 'page': page}
+            params = {'limit': config.SHOPER_LIMIT, 'page': page}
             response = self._handle_request('GET', url, params=params)
 
             if response.status_code != 200:
