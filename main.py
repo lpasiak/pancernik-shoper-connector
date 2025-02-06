@@ -23,15 +23,21 @@ if __name__ == "__main__":
 
     try:
         # Authenticate with the Shoper API
+
+        operation = input('''
+Co chcesz zrobić?
+1. Uzupełnić produkty powiązane.
+2. Pobrać wszystkie produkty.\n''')
+        
         client.connect()
 
-        # == Update Recommended products == #
-        client.update_related_products(COMBINED_PRODUCTS_SHEET)
-
-
-        # == Download and display products == #
-        # product_df = pd.DataFrame(client.get_all_products())
-        # product_df.to_excel(os.path.join('sheets', 'All_products.xlsx'), index=False)
+        if input == '1':
+            client.update_related_products(COMBINED_PRODUCTS_SHEET)
+        elif input == '2':
+            product_df = pd.DataFrame(client.get_all_products())
+            product_df.to_excel(os.path.join('sheets', 'All_products.xlsx'), index=False)
+        else:
+            print('Nieprawidłowa wartość wariacie')
 
     except Exception as e:
         print(f"Error: {e}")

@@ -203,3 +203,4 @@ class ShoperAPIClient:
 
             if response.status_code != 200:
                 print(f"Failed to update a product: {response.status_code}, {response.text}") 
+                
