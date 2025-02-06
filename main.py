@@ -24,16 +24,16 @@ if __name__ == "__main__":
     try:
         # Authenticate with the Shoper API
 
-        operation = input('''
+        operation = str(input('''
 Co chcesz zrobić?
 1. Uzupełnić produkty powiązane.
-2. Pobrać wszystkie produkty.\n''')
+2. Pobrać wszystkie produkty.\n'''))
         
         client.connect()
 
-        if input == '1':
+        if operation == '1':
             client.update_related_products(COMBINED_PRODUCTS_SHEET)
-        elif input == '2':
+        elif operation == '2':
             product_df = pd.DataFrame(client.get_all_products())
             product_df.to_excel(os.path.join('sheets', 'All_products.xlsx'), index=False)
         else:

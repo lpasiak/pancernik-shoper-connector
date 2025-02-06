@@ -4,7 +4,7 @@ import requests
 import os
 import time
 import config
-from dotenv import load_env
+from dotenv import load_dotenv
 
 dotenv_path = os.path.join('credentials', 'env')
 load_dotenv(dotenv_path)
