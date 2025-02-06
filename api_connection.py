@@ -4,13 +4,17 @@ import requests
 import os
 import time
 import config
+from dotenv import load_env
+
+dotenv_path = os.path.join('credentials', 'env')
+load_dotenv(dotenv_path)
 
 class ShoperAPIClient:
 
     def __init__(self):
-        self.site_url = os.environ.get(f'SHOPERSITE_{config.SITE}')
-        self.login = os.environ.get(f'LOGIN_{config.SITE}')
-        self.password = os.environ.get(f'PASSWORD_{config.SITE}')
+        self.site_url = os.getenv(f'SHOPERSITE_{config.SITE}')
+        self.login = os.getenv(f'LOGIN_{config.SITE}')
+        self.password = os.getenv(f'PASSWORD_{config.SITE}')
         self.session = requests.Session()  # Maintain a session
         self.token = None
 
