@@ -5,6 +5,7 @@ import os
 import time
 import config
 from dotenv import load_dotenv
+import json
 
 dotenv_path = os.path.join('credentials', 'env')
 load_dotenv(dotenv_path)
@@ -43,6 +44,30 @@ class ShoperAPIClient:
                 time.sleep(retry_after)
             else:
                 return response
+            
+    def get_a_single_product_by_code(self, product_code):
+        url = f'{self.site_url}/webapi/rest/products'
+
+        product_filter = {
+            "filters": json.dumps({"stock.code": product_code})
+        }
+
+        try:
+            response = self._handle_request('GET', url, params=product_filter)
+            product_list = response.json().get('list', [])
+            
+            if not product_list:
+                print(f'Product {product_code} doesn\'t exist')
+                return None
+            
+            product = product_list[0]
+            product_id = product['product_id']
+
+            return product_id
+        
+        except Exception as e:
+            print(f'Error fetching product {product_code}: {str(e)}')
+            return None
 
     def get_all_products(self):
         """Get all products using pagination and print the result"""
@@ -190,9 +215,9 @@ class ShoperAPIClient:
         """Update Recommended products in products"""
         product_data = pd.read_csv(gsheets)
         result = product_data.to_dict(orient='records')
-
+    
         for item in result:
-            product_id = item['product_id']
+            product_id = self.get_a_single_product_by_code(item['code'])
             related_products = item["related_products"]
 
             # Turn a string into an array of related products
