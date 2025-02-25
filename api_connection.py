@@ -217,7 +217,7 @@ class ShoperAPIClient:
         result = product_data.to_dict(orient='records')
     
         for item in result:
-            product_id = self.get_a_single_product_by_code(item['code'])
+            product_id = self.get_a_single_product_by_code(item['ean'])
             related_products = item["related_products"]
 
             # Turn a string into an array of related products
